@@ -1,0 +1,61 @@
+#  Kopiere den Inhalt in die Zwischenablage und füge diesen dann in ein File 
+#  mit dem Namen: Beeceptor.http in VS Code ein
+
+@url = https://ca494ca96e6b1913c9e0.free.beeceptor.com
+
+### Als erstes erstellen wir ein paar neuen User
+
+POST {{url}}/api/users
+Content-Type: application/json
+
+{
+  "first_name": "Max2",
+  "last_name": "Mustermann",
+  "age": 30,
+  "is_active": true
+}
+
+### Dann rufen wir die erstellten User ab
+GET {{url}}/api/users
+
+# Wir merken uns die Id des ersten Users
+@id = 23e4704d5e6a4552cb2d
+
+### Get single user
+GET {{url}}/api/users/{{id}}
+
+### Get single user  (Not found)
+GET {{url}}/api/users/64e234c636203e876d47d
+
+### Update User mit PUT 
+PUT {{url}}/api/users/{{id}}
+Content-Type: application/json
+
+{
+  "first_name": "Fabian",
+  "last_name": "Mustermann",
+  "age": 40,
+  "is_active": true
+}
+
+### Den veränderten Record abrufen
+GET {{url}}/api/users/{{id}}
+
+
+### Update user mit Patch
+PATCH  {{url}}/api/users/{{id}}
+Content-Type: application/json
+
+{
+  "is_active": false
+}
+
+### Den veränderten Record abrufen
+GET {{url}}/api/users/{{id}}
+
+### Delete todo (Bitte Id anpassen)
+DELETE  {{url}}/api/users/{{id}}
+
+### Versuch den gelöschen Record erneut zu lesen
+GET {{url}}/api/users/{{id}}
+
